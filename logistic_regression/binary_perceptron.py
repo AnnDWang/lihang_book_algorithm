@@ -4,26 +4,23 @@
 # @Email:  wendesi@foxmail.com
 # @Last modified by:   WenDesi
 # @Last modified time: 08-11-16
-
-
 import pandas as pd
 import numpy as np
 import cv2
 import random
 import time
 
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 
 class Perceptron(object):
-
     def __init__(self):
         self.learning_step = 0.00001
         self.max_iteration = 5000
 
     def predict_(self, x):
-        wx = sum([self.w[j] * x[j] for j in xrange(len(self.w))])
+        wx = sum([self.w[j] * x[j] for j in range(len(self.w))])
         return int(wx > 0)
 
     def train(self, features, labels):
@@ -37,7 +34,7 @@ class Perceptron(object):
             x = list(features[index])
             x.append(1.0)
             y = 2 * labels[index] - 1
-            wx = sum([self.w[j] * x[j] for j in xrange(len(self.w))])
+            wx = sum([self.w[j] * x[j] for j in range(len(self.w))])
 
             if wx * y > 0:
                 correct_count += 1
@@ -45,10 +42,10 @@ class Perceptron(object):
                     break
                 continue
 
-            for i in xrange(len(self.w)):
+            for i in range(len(self.w)):
                 self.w[i] += self.learning_step * (y * x[i])
 
-    def predict(self,features):
+    def predict(self, features):
         labels = []
         for feature in features:
             x = list(feature)
@@ -58,8 +55,7 @@ class Perceptron(object):
 
 
 if __name__ == '__main__':
-
-    print 'Start read data'
+    print('Start read data')
 
     time_1 = time.time()
 
@@ -76,19 +72,19 @@ if __name__ == '__main__':
     # print train_features.shape
 
     time_2 = time.time()
-    print 'read data cost ', time_2 - time_1, ' second', '\n'
+    print('read data cost ', time_2 - time_1, ' second', '\n')
 
-    print 'Start training'
+    print('Start training')
     p = Perceptron()
     p.train(train_features, train_labels)
 
     time_3 = time.time()
-    print 'training cost ', time_3 - time_2, ' second', '\n'
+    print('training cost ', time_3 - time_2, ' second', '\n')
 
-    print 'Start predicting'
+    print('Start predicting')
     test_predict = p.predict(test_features)
     time_4 = time.time()
-    print 'predicting cost ', time_4 - time_3, ' second', '\n'
+    print('predicting cost ', time_4 - time_3, ' second', '\n')
 
     score = accuracy_score(test_labels, test_predict)
-    print "The accruacy socre is ", score
+    print("The accruacy socre is ", score)

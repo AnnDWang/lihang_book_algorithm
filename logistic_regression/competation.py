@@ -8,10 +8,10 @@
 import csv
 import pandas as pd
 
-from binary_perceptron import Perceptron
-from logistic_regression import LogisticRegression
+from .binary_perceptron import Perceptron
+from .logistic_regression import LogisticRegression
 
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 if __name__ == '__main__':
@@ -27,10 +27,10 @@ if __name__ == '__main__':
     p = Perceptron()
     lr = LogisticRegression()
 
-    writer = csv.writer(file('result.csv', 'wb'))
+    writer = csv.writer(open('result.csv', 'wb'))
 
-    for time in xrange(test_time):
-        print 'iterater time %d' % time
+    for time in range(test_time):
+        print('iterater time %d' % time)
 
         train_features, test_features, train_labels, test_labels = train_test_split(
             imgs, labels, test_size=0.33, random_state=23323)
@@ -44,7 +44,7 @@ if __name__ == '__main__':
         p_score = accuracy_score(test_labels, p_predict)
         lr_score = accuracy_score(test_labels, lr_predict)
 
-        print 'perceptron accruacy score ', p_score
-        print 'logistic Regression accruacy score ', lr_score
+        print('perceptron accruacy score ', p_score)
+        print('logistic Regression accruacy score ', lr_score)
 
-        writer.writerow([time,p_score,lr_score])
+        writer.writerow([time, p_score, lr_score])

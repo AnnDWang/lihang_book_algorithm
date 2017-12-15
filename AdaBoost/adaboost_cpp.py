@@ -13,9 +13,9 @@ import logging
 import numpy as np
 import pandas as pd
 
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-
+"""
 sign_time_count = 0
 
 class Sign(object):
@@ -47,13 +47,13 @@ class AdaBoost(object):
         length = self.n*self.N
         self.X_matrix = (ctypes.c_int * length)()
 
-        for i in xrange(self.n):
-            for j in xrange(self.N):
+        for i in range(self.n):
+            for j in range(self.N):
                 self.X_matrix[i*self.N+j] = X[j][i]
 
     def rebuild_Y(self,Y):
         self.C_Y = (ctypes.c_int * self.N)()
-        for i in xrange(self.N):
+        for i in range(self.N):
             self.C_Y[i] = Y[i]
 
 
@@ -78,14 +78,14 @@ class AdaBoost(object):
     def _Z_(self,index,classifier):
         Z = 0
 
-        for i in xrange(self.N):
+        for i in range(self.N):
             Z += self._w_(index,classifier,i)
 
         return Z
 
     def build_c_w(self):
         C_w = (ctypes.c_double * self.N)()
-        for i in xrange(self.N):
+        for i in range(self.N):
             C_w[i] = ctypes.c_double(self.w[i])
         return C_w
 
@@ -93,7 +93,7 @@ class AdaBoost(object):
 
         self._init_parameters_(features,labels)
 
-        for times in xrange(self.M):
+        for times in range(self.M):
             logging.debug('iterater %d' % times)
 
 
@@ -120,13 +120,13 @@ class AdaBoost(object):
 
             Z = self._Z_(best_classifier[1],best_classifier[2])
 
-            for i in xrange(self.N):
+            for i in range(self.N):
                 self.w[i] = self._w_(best_classifier[1],best_classifier[2],i)/Z
 
     def _predict_(self,feature):
 
         result = 0.0
-        for i in xrange(self.M):
+        for i in range(self.M):
             index = self.classifier[i][0]
             classifier = self.classifier[i][1]
 
@@ -206,3 +206,4 @@ if __name__ == '__main__':
     test_labels = map(lambda x:2*x-1,test_labels)
     score = accuracy_score(test_labels,test_predict)
     print "The accruacy socre is ", score
+"""
